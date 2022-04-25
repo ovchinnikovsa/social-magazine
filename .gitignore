@@ -1,0 +1,4 @@
+*.vscode
+*.htaccess
+/downloads
+db_conf.php
