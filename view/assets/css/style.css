@@ -1,25 +1,97 @@
-.main{
-    background-color: #e8e8e8;
-}
+
+@font-face {
+    font-family: "sans-serif";
+    font-style: normal;
+    font-weight: 400;
+    src: local("sans-serif"),
+         url("/../fonts/Raleway-Medium.ttf") format("ttf"),
+  }
+
+/* HEADER */
 
 .header {
-    background-color: #ff6f50;
     font-family: monospace;
 }
 
-.header-wrapper{
-    background: linear-gradient(90deg, #ff9d56, #ff6f50);
-    padding-bottom: 10px;
-    margin-bottom: 24px;
-}
-
-.header-frame .navbar-brand{
+.header-frame .navbar-brand {
     text-shadow: 2px 2px 2px #000000;
     color: white;
     font-size: 1.5rem;
 }
 
-.header-frame .nav-link{
+.header-frame .nav-link {
     text-shadow: 2px 2px 2px #000000c4;
     color: #ffffffeb !important;
 }
+
+/* MAIN PAGE */
+
+body {
+    background-image: url(/view/assets/images/bg_main.jpg);
+    background-attachment: fixed;
+}
+
+.main {
+    font-family: "sans-serif", "Arial", sans-serif;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(15px);
+    padding: 1rem;
+    border: white 1px solid;
+    margin: 2rem auto;
+}
+
+/* ITEM PAGE */
+
+.main-item {
+    background-color: rgb(255 255 255 / 55%);
+}
+
+.item-header {
+    margin-left: 2rem;
+}
+
+.item-content {
+    margin: 1rem 0;
+}
+
+.item-image {
+    width: 90%;
+    border-radius: 0.25rem;
+    object-fit: contain;
+}
+
+.item-characters {
+    list-style: none;
+    font-size: 1rem;
+    padding: 0;
+    margin: 1rem auto;
+    width: 90%;
+    font-weight: 500;
+}
+
+.item-characters li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-characters li span:nth-child(2) {
+    flex: 1 0;
+    border-bottom: 1px dotted #000;
+    height: 1.1em;
+    margin: 0 .4em;
+}
+
+.item-button {
+    width: 60%;
+    margin: 1rem auto;
+}
+
+.item-text {
+    padding: 2rem;
+}
+
+.buy-icon {
+    width: 32px;
+    height: 32px;
+}
+

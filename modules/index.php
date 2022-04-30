@@ -14,6 +14,19 @@ function post($key, $value = 'not defined')
     $_POST[$key] = $value;
 }
 
+function get($key, $value = 'not defined')
+{
+    if ($value === 'not defined') {
+        return $_GET[$key] ?? null;
+    }
+    $_GET[$key] = $value;
+}
+
+function cut_get_query(string $str): string{
+    $get_query = strstr($str, '?') ?: '';
+    return str_replace($get_query, '', $str);
+}
+
 function session($key, $value = 'not defined')
 {
     if ($value === 'not defined') {
@@ -60,12 +73,12 @@ function redirect(string $path): void
     die();
 }
 
-function set_message(string $message, bool $error = true): void
+function set_message(string $message, string $from = '/', bool $error = true): void
 {
     session('error', $error);
     session('message', $message);
     session('show_modal', true);
-    redirect('/');
+    redirect($from);
 }
 
 function show_message()
@@ -79,7 +92,9 @@ function show_message()
     if ($message) {
         ob_start();
         ?>
-<p class="<?php echo $is_error ? 'error-message' : 'succsess-message'; ?>"><?php echo $message; ?></p>
+<div class="alert alert-<?php echo $is_error ? 'danger' : 'success'; ?>" role="alert">
+<?php echo $message; ?>
+</div>
 <?php
 return ob_get_clean();
     }
@@ -109,7 +124,125 @@ function db_insert_model($name, $telegram, $phone)
     return db_query($sql);
 }
 
-function get_last_inserted_id(){
+function get_last_inserted_id()
+{
     global $mysqli;
     return mysqli_insert_id($mysqli);
+}
+
+function db_get_value($sql)
+{
+    global $mysqli;
+    $result = db_query($sql);
+    if ($result) {
+        $row = $result->fetch_array();
+        if ($row && isset($row[0])) {
+            return $row[0];
+        }
+    }
+    return 0;
+}
+
+function db_get_list($table, $where = "1 = 1", $order = 'id')
+{
+    global $mysqli;
+    $list = [];
+    $sql = "SELECT * FROM `{$table}` ";
+    $sql .= " WHERE " . $where . " ";
+    $sql .= " ORDER BY {$order} ";
+    $sql .= " ;";
+    $result = db_query($sql);
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $list[] = $row;
+        }
+    }
+    return $list;
+}
+
+function db_get_list_sql($sql)
+{
+    global $mysqli;
+    $list = [];
+    $result = db_query($sql);
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $list[] = $row;
+        }
+    }
+    return $list;
+}
+
+function db_get_row_by_fields($table, $arr)
+{
+    global $mysqli;
+    $str = "";
+    foreach ($arr as $key => $item) {
+        if ($str) {
+            $str .= " AND ";
+        }
+
+        $str .= "`{$key}` = " . escape_db($item);
+    }
+    $sql = "SELECT * FROM `{$table}` WHERE {$str} LIMIT 1;";
+    $result = db_query($sql);
+    if ($result) {
+        return $result->fetch_assoc();
+    }
+    return [];
+}
+
+function db_get_value_by_fields($table, $value, $arr)
+{
+    global $mysqli;
+    $str = "";
+    foreach ($arr as $key => $item) {
+        if ($str) {
+            $str .= " AND ";
+        }
+
+        $str .= "`{$key}` = " . escape_db($item);
+    }
+    $sql = "SELECT `{$value}` FROM `{$table}` WHERE {$str} LIMIT 1;";
+    $result = db_query($sql);
+    if ($result) {
+        $row = $result->fetch_array();
+        if ($row && isset($row[0])) {
+            return $row[0];
+        }
+    }
+    return 0;
+}
+
+function is_admin(): bool
+{
+    return $_SESSION['admin'] ?? false;
+}
+
+function set_form_location(): string
+{
+    $from = $_SERVER['REQUEST_URI'];
+
+    ob_start();
+    ?>
+<input type="hidden" name="from" value="<?php echo $from; ?>">
+<?php
+return ob_get_clean();
+}
+
+function get_from()
+{
+    return post('from') ?: '/';
+}
+
+function set_form()
+{
+    echo set_form_location();
+    echo cfrs_set();
+    echo show_message();
+}
+
+function authorization_admin()
+{
+    session('admin', true);
 }
