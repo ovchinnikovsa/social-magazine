@@ -1,11 +1,10 @@
-
 @font-face {
     font-family: "sans-serif";
     font-style: normal;
     font-weight: 400;
     src: local("sans-serif"),
-         url("/../fonts/Raleway-Medium.ttf") format("ttf"),
-  }
+        url("/../fonts/Raleway-Medium.ttf") format("ttf"),
+}
 
 /* HEADER */
 
@@ -40,6 +39,34 @@ body {
     margin: 2rem auto;
 }
 
+.Zebra_Pagination {
+    margin: 2rem auto;
+}
+
+.list-row ul {
+    list-style: none;
+    margin: 0.5rem auto;
+}
+
+.list-row ul ul {
+    list-style: none;
+    margin: 0;
+}
+
+.list-row li button {
+    background: none;
+    border: none;
+    text-decoration: underline;
+}
+
+.list-row li {
+    margin: 0.5rem auto;
+}
+
+.list-cat-header {
+    font-size: 1.2rem;
+}
+
 /* ITEM PAGE */
 
 .main-item {
@@ -48,6 +75,17 @@ body {
 
 .item-header {
     margin-left: 2rem;
+}
+
+.item-title h4 {
+    display: block;
+    width: 30%;
+    text-align: end;
+}
+
+.item-title a {
+    display: block;
+    width: 60%;
 }
 
 .item-content {
@@ -95,3 +133,8 @@ body {
     height: 32px;
 }
 
+/* ADM PAGES */
+
+.main-adm {
+    background-color: #f8f9fa;
+}

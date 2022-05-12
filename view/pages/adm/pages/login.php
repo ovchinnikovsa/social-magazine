@@ -1,9 +1,9 @@
-<?php require_once ROOT . '/view/blocks/head.php'; ?>
-<?php require_once ROOT . '/view/blocks/header.php'; ?>
+<?php require_once ROOT . '/view/blocks/head.php';?>
+<?php require_once ROOT . '/view/blocks/header.php';?>
 
 <div class="container main">
     <form method="post" action="/handlers/auth.php" style="width: 30%">
-    <?php echo set_form(); ?>
+        <?php echo set_form(); ?>
         <div class="mb-3">
             <label for="login" class="form-label">Login</label>
             <input type="text" name="login" class="form-control" id="login" aria-describedby="emailHelp">
@@ -16,4 +16,4 @@
     </form>
 </div>
 
-<?php require_once ROOT . '/view/blocks/footer.php'; ?>
+<?php require_once ROOT . '/view/blocks/footer.php';?>

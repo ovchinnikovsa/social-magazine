@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/modules/index.php';
 require_once __DIR__ . '/db_conf.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
