@@ -262,30 +262,31 @@ function get_pagination_products($records_per_page = 9, $status = false, $delete
         ];
     }
     $search = session('search') ?: '';
+    $sort = session('sort') ?: '';
     $category = json_decode(session('category') ?: '') ?: [];
     $pagination = new Zebra_Pagination();
-    $rows = get_paginated_products_list_count($conditions, $search, $category);
+    $rows = get_paginated_products_list_count($conditions, $search, $category, $sort);
     $pagination->records((int) $rows);
     $pagination->records_per_page((int) $records_per_page);
     $pagination->variable_name('p');
     $offset = ($pagination->get_page() - 1) * $records_per_page;
-    return ['pagination' => $pagination, 'list' => get_paginated_products_list($offset, $records_per_page, $conditions, $search, $category)];
+    return ['pagination' => $pagination, 'list' => get_paginated_products_list($offset, $records_per_page, $conditions, $search, $category, $sort)];
 }
 
-function get_paginated_products_list(int $offset, int $limit, array $conditions, string $search = '', array $category = []): array
+function get_paginated_products_list(int $offset, int $limit, array $conditions, string $search = '', array $category = [], string $sort = ''): array
 {
     $sql = 'SELECT * FROM `products`';
-    $sql .= get_sql_where_for_products($conditions, $search, $category);
+    $sql .= get_sql_where_for_products($conditions, $search, $category, $sort);
     $sql .= ' LIMIT ' . $offset . ', ' . $limit . '';
     return db_get_list_sql($sql);
 }
 
-function get_paginated_products_list_count(array $conditions, string $search = '', array $category = []): int
+function get_paginated_products_list_count(array $conditions, string $search = '', array $category = [], string $sort = ''): int
 {
-    return db_get_value('SELECT COUNT(*) FROM `products` ' . get_sql_where_for_products($conditions, $search, $category));
+    return db_get_value('SELECT COUNT(*) FROM `products` ' . get_sql_where_for_products($conditions, $search, $category, $sort));
 }
 
-function get_sql_where_for_products(array $conditions, string $search = '', array $category = []): string
+function get_sql_where_for_products(array $conditions, string $search = '', array $category = [], string $sort = ''): string
 {
     $first = true;
     $where = '';
@@ -318,6 +319,11 @@ function get_sql_where_for_products(array $conditions, string $search = '', arra
         }
         $where .= ' `category_id` = ';
         $where .= escape_db($cat);
+    }
+    if ($sort === 'ASC' || $sort === 'DESC') {
+        $where .= ' ORDER BY `price` ' . $sort;
+    } else {
+        $where .= ' ORDER BY `id` DESC';
     }
     return $where;
 }

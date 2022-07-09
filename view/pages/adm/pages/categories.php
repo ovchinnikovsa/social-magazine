@@ -69,8 +69,9 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" value="<?php echo escape($subcategory); ?>" disabled
                     aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" name="delete" value="<?php echo escape($precategory . ',' .$category . ',' .$subcategory); ?>"
-                    type="submit" id="button-addon2">Удалить</button>
+                <button class="btn btn-outline-secondary" name="delete"
+                    value="<?php echo escape($precategory . ',' .$category . ',' .$subcategory); ?>" type="submit"
+                    id="button-addon2">Удалить</button>
             </div>
             <?php }?>
         </div>

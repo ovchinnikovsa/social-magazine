@@ -1,7 +1,6 @@
 <?php require_once ROOT . '/view/blocks/head.php'; ?>
 <?php require_once ROOT . '/view/blocks/header.php'; ?>
 
-<?php $item = get_item_info(get('item'), is_admin()) ?: []; ?>
 <?php if ($item) { ?>
 <div class="container-md main main-item">
     <h2 class="item-header"><?php echo escape($item['title']); ?></h2>
@@ -52,39 +51,29 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-3 col-6 d-flex justify-content-center">
-                        <a href="" class="d-flex flex-column align-items-center">
+                    <div class="col-sm-4 col-4 d-flex justify-content-center">
+                        <a href="mailto:Estr35@mail.ru" class="d-flex flex-column align-items-center">
                             <img class="buy-icon" src="/view/assets/images/mail.png" alt="почта">
                             <p>Почта</p>
                         </a>
                     </div>
-                    <div class="col-sm-3 col-6 d-flex justify-content-center">
-                        <a href="" class="d-flex flex-column align-items-center">
+                    <div class="col-sm-4 col-4 d-flex justify-content-center">
+                        <a href="tel:+79115383331" class="d-flex flex-column align-items-center">
                             <img class="buy-icon" src="/view/assets/images/telephone.png" alt="телефон">
                             <p>Телефон</p>
                         </a>
                     </div>
-                    <div class="col-sm-3 col-6 d-flex justify-content-center">
-                        <a href="" class="d-flex flex-column align-items-center">
+                    <div class="col-sm-4 col-4 d-flex justify-content-center">
+                        <a href="https://t.me/Elstroy35" target="_blank" class="d-flex flex-column align-items-center">
                             <img class="buy-icon" src="/view/assets/images/telegram.png" alt="телеграмм">
                             <p>Телеграмм</p>
                         </a>
                     </div>
-                    <div class="col-sm-3 col-6 d-flex justify-content-center">
-                        <a href="" class="d-flex flex-column align-items-center">
-                            <img class="buy-icon" src="/view/assets/images/vk.png" alt="вконтакте">
-                            <p>ВКонтакте</p>
-                        </a>
-                    </div>
+                    
                 </div>
                 <div class="row">
                     <p>
-                        Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является
-                        стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный
-                        печатник создал
-                        большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem
-                        Ipsum не
-                        только
+                        Для продолжения покупки свяжитесь с нашим менеджером по контактам, указанным выше.
                     </p>
                 </div>
             </div>

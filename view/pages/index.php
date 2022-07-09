@@ -25,9 +25,20 @@
         </div>
         <div class="col">
             <form action="/handlers/clear.php" method="post">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 dropdown">
                     <?php echo set_form(); ?>
                     <input type="submit" class="form-control btn-light" name="clear" value="Сбросить">
+                    <button type="button" class="btn  btn-outline-light dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                       <img src="/view/assets/images/funnel.svg" alt="">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown">
+                        <li>
+                            <h6 class="dropdown-header">Цена</h6>
+                        </li>
+                        <li><button class="dropdown-item <?php echo session('sort') === 'ASC' ? 'active' : ''; ?>" name="sort" value="ASC" type="submit">По убыванию</button></li>
+                        <li><button class="dropdown-item <?php echo session('sort') === 'DESC' ? 'active' : ''; ?>" name="sort" value="DESC" type="submit">По возрастанию</button></li>
+                    </ul>
                 </div>
             </form>
         </div>
