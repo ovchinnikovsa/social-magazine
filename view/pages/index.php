@@ -4,10 +4,18 @@
 <div class="container-md main">
     <?php echo show_message(); ?>
     <div class="row row-cols-1 row-cols-md-3" style="border-bottom: 1px solid white; margin-bottom: 1rem;">
-        <div class="col">
+        <div class="col cat-desktop">
             <div class="input-group mb-3">
                 <button class="btn btn-light w-100" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    data-bs-target="#collapseCat" aria-expanded="false" aria-controls="collapseCat">
+                    Категории
+                </button>
+            </div>
+        </div>
+        <div class="col cat-mobile">
+            <div class="input-group mb-3">
+                <button class="btn btn-light w-100" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasCat" aria-controls="offcanvasCat">
                     Категории
                 </button>
             </div>
@@ -16,7 +24,7 @@
             <form action="/handlers/search.php" method="post">
                 <div class="input-group mb-3">
                     <?php echo set_form(); ?>
-                    <input type="text" class="form-control" placeholder="Найти" name="search"
+                    <input type="text" class="form-control rounded-start" placeholder="Найти" name="search"
                         value="<?php echo session('search') ?: ''; ?>" aria-label="Example text with button addon"
                         aria-describedby="button-addon1">
                     <button class="btn btn-outline-light" type="submit" id="button-addon1">&#128269;</button>
@@ -27,49 +35,38 @@
             <form action="/handlers/clear.php" method="post">
                 <div class="input-group mb-3 dropdown">
                     <?php echo set_form(); ?>
-                    <input type="submit" class="form-control btn-light" name="clear" value="Сбросить">
+                    <input type="submit" class="form-control btn-light rounded-start" name="clear" value="Сбросить">
                     <button type="button" class="btn  btn-outline-light dropdown-toggle dropdown-toggle-split"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                       <img src="/view/assets/images/funnel.svg" alt="">
+                        <img src="/view/assets/images/funnel.svg" alt="">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown">
                         <li>
                             <h6 class="dropdown-header">Цена</h6>
                         </li>
-                        <li><button class="dropdown-item <?php echo session('sort') === 'ASC' ? 'active' : ''; ?>" name="sort" value="ASC" type="submit">По убыванию</button></li>
-                        <li><button class="dropdown-item <?php echo session('sort') === 'DESC' ? 'active' : ''; ?>" name="sort" value="DESC" type="submit">По возрастанию</button></li>
+                        <li><button class="dropdown-item <?php echo session('sort') === 'ASC' ? 'active' : ''; ?>"
+                                name="sort" value="ASC" type="submit">По убыванию</button></li>
+                        <li><button class="dropdown-item <?php echo session('sort') === 'DESC' ? 'active' : ''; ?>"
+                                name="sort" value="DESC" type="submit">По возрастанию</button></li>
                     </ul>
                 </div>
             </form>
         </div>
 
-        <div class="collapse w-100" id="collapseExample">
+        <div class="collapse w-300" id="collapseCat">
             <form action="/handlers/category-select.php" method="post">
-                <?php echo set_form(); ?>
-                <div class="d-flex flex-wrap align-items-start p-3 mb-3 border border-white rounded bg-white text-dark">
-                    <div class="nav nav-pills me-3 w-100 border-bottom border-dark justify-content-evenly"
-                        id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <?php
-                        $precategories = get_categories();
-                        $i = 1;
-                        $first = true;
-                        foreach ($precategories as $precategory => $categories) { ?>
-                        <button class="nav-link <?php if ($first) { echo 'active'; $first = false; } ?> m-1"
-                            id="v-pills-<?php echo $i; ?>-tab" data-bs-toggle="pill"
-                            data-bs-target="#v-pills-<?php echo $i; ?>" type="button" role="tab"
-                            aria-controls="v-pills-<?php echo $i++; ?>"
-                            aria-selected=""><?php echo escape($precategory); ?></button>
-                        <?php } ?>
-                    </div>
-                    <div class="tab-content w-100 p-3" id="v-pills-tabContent">
-                        <?php 
-                        $i = 1;
-                        $first = true;
-                        foreach ($precategories as $precategory => $categories) { ?>
-                        <div class="tab-pane fade show <?php if ($first) { echo 'active'; $first = false; } ?>"
-                            id="v-pills-<?php echo $i; ?>" role="tabpanel"
-                            aria-labelledby="v-pills-<?php echo $i++; ?>-tab">
-                            <div class="row row-cols-1 row-cols-sm-3 g-4 list-row mt-1">
+                <?php
+                    echo set_form();
+                    $precategories = get_categories();
+                ?>
+                <div class="d-flex flex-wrap flex-column p-3 mb-3 border border-white rounded bg-white text-dark">
+                    <?php foreach ($precategories as $precategory => $categories) { ?>
+                    <div class="cat-expand-hover">
+                        <button type="submit" name="category" value="<?php echo escape($precategory); ?>"
+                            class="active bg-white pt-1 pb-1 mb-1 lh-lg w-100">
+                            <?php echo escape($precategory); ?></button>
+                        <div class="expand-panel bg-white text-dark">
+                            <div class="row row-cols-1 row-cols-sm-3 list-row m-1">
                                 <?php foreach ($categories as $category => $subcategories) { ?>
                                 <ul class="col list-cat">
                                     <li><button class="list-cat-header" type="submit" name="category"
@@ -91,9 +88,10 @@
                                 <?php } ?>
                             </div>
                         </div>
-                        <?php } ?>
                     </div>
+                    <?php } ?>
                 </div>
+
             </form>
         </div>
     </div>
@@ -129,6 +127,59 @@
 
     <?php if ($pagination['list']) $pagination['pagination']->render(); ?>
 
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCat" aria-labelledby="offcanvasCatLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasCatLabel">ЭлектроСтрой</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            <h3>Категории</h3>
+        </div>
+        <div class="accordion accordion-flush" id="accordionFlushCat">
+            <?php
+                $i = 1;
+                foreach ($precategories as $precategory => $categories) { ?>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading<?php echo $i; ?>">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapse<?php echo $i; ?>" aria-expanded="false"
+                        aria-controls="flush-collapse<?php echo $i; ?>">
+                        <?php echo escape($precategory); ?>
+                    </button>
+                </h2>
+                <div id="flush-collapse<?php echo $i; ?>" class="accordion-collapse collapse"
+                    aria-labelledby="flush-heading<?php echo $i; ?>" data-bs-parent="#accordionFlushCat">
+                        <div class="list-row">
+                            <?php foreach ($categories as $category => $subcategories) { ?>
+                            <ul class="list-cat">
+                                <li><button class="list-cat-header" type="submit" name="category"
+                                        value="<?php echo escape($category); ?>">
+                                        <?php echo escape($category); ?>
+                                    </button>
+                                </li>
+                                <ul>
+                                    <?php foreach ($subcategories as $subcategory) {?>
+                                    <li>
+                                        <button type="submit" name="category"
+                                            value="<?php echo escape($subcategory); ?>">
+                                            <?php echo escape($subcategory); ?>
+                                        </button>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </ul>
+                            <?php } ?>
+                        </div>
+                </div>
+            </div>
+            <?php 
+            $i++;
+        } ?>
+        </div>
+    </div>
 </div>
 
 <?php require_once ROOT . '/view/blocks/footer.php'; ?>
