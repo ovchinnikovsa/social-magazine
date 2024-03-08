@@ -97,7 +97,7 @@
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
-        $pagination = get_pagination_products(9, 1, 1);
+        $pagination = get_pagination_products(3, 1, 1);
         if ($pagination['list']) {
         foreach ($pagination['list'] as $item){
             $style = $item['status'] == 0 ? 'style="background-color: #8080806e;"' : false;

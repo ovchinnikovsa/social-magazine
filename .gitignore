@@ -1,5 +1,5 @@
 *.vscode
 composer.lock
-# src/downloads/
+src/downloads/
 docker/mariadb/database/
 vendor/
