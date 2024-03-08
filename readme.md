@@ -12,7 +12,10 @@ This repository contains a basic demo e-commerce website built with simplicity a
 Run make instructions:
 
 1. `make pbuild`
-2. `make build`
-3. `make run`
+2. `make pchown`
+3. `make build`
+4. `make run`
+5. `make pchown`
+6. `make db_restore`
 
 To stop - `make stop`

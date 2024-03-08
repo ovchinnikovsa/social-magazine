@@ -8,7 +8,6 @@ services:
     volumes:
       - "./src:/var/www/html"
       - "./docker/php/downloads:/var/www/html/downloads"
-    # command: chown -R www-data:www-data /var/www/html/downloads
     depends_on:
       - mag_mariadb
 
@@ -18,12 +17,9 @@ services:
         - 3310:3306
       volumes:
         - ./docker/mariadb/database:/var/lib/mysql
-        - ./docker/mariadb/dump:/home
+        - ./docker/mariadb/dump:/var/backups:rw
       environment:
-        # - ALLOW_EMPTY_PASSWORD=yes
         - MARIADB_DATABASE=mydatabase
-        # - MARIADB_PORT_NUMBER=3306
-        # - MARIADB_ROOT_USER=root
         - MARIADB_ROOT_PASSWORD=root
         - MARIADB_USER=myuser
         - MARIADB_PASSWORD=mypassword
