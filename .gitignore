@@ -1,8 +1,7 @@
 *.vscode
 composer.lock
-**/downloads/
+src/downloads/
 docker/mariadb/database/
 vendor/
 *.ini
 **/dump
-!docker/conf/db.ini
