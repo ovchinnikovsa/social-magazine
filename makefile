@@ -21,3 +21,6 @@ db_dump:
 
 db_restore:
 	docker-compose exec -i mag_mariadb sh -c "exec mysql --user=myuser --password=mypassword mydatabase < /var/backups/db.sql"
+
+prod:
+	docker-compose -f docker-compose-prod.yml up -d
