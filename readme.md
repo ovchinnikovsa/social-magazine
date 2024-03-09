@@ -19,3 +19,5 @@ Run make instructions:
 6. `make db_restore`
 
 To stop - `make stop`
+
+> Also u can change db access in /docker/conf/db.ini file. And conf.ini from /src with salt.

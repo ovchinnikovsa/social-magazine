@@ -8,6 +8,7 @@ services:
     volumes:
       - "./src:/var/www/html"
       - "./docker/php/downloads:/var/www/html/downloads"
+      - "./docker/conf/db.ini:/var/www/html/db.ini:rw"
     depends_on:
       - mag_mariadb
     networks:
@@ -20,11 +21,8 @@ services:
       volumes:
         - ./docker/mariadb/database:/var/lib/mysql
         - ./docker/mariadb/dump:/var/backups:rw
-      environment:
-        - MARIADB_DATABASE=mydatabase
-        - MARIADB_ROOT_PASSWORD=root
-        - MARIADB_USER=myuser
-        - MARIADB_PASSWORD=mypassword
+      env_file:
+        - ./docker/conf/db.ini
       networks:
       - titleSite
 

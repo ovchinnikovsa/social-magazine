@@ -1,11 +1,11 @@
 <?php
 
-$ini_file = parse_ini_file('db.ini');
+$ini_file = parse_ini_file(__DIR__ . '/db.ini');
 
-$db_host = $ini_file['db_host'];
-$db_name = $ini_file['db_name'];
-$db_user = $ini_file['db_user'];
-$db_pass = $ini_file['db_pass'];
+$db_host = $ini_file['DB_HOST'];
+$db_name = $ini_file['MARIADB_DATABASE'];
+$db_user = $ini_file['MARIADB_USER'];
+$db_pass = $ini_file['MARIADB_PASSWORD'];
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
