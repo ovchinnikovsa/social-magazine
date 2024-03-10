@@ -4,4 +4,5 @@ src/downloads/
 docker/mariadb/database/
 vendor/
 *.ini
-**/dump
+!/docker/mariadb/dump/db.sql
+!/docker/conf/db.ini
